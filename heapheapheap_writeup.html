@@ -402,8 +402,8 @@ value(2. chunk) and so on. This is also true for the rest of the
 exploit.)</p>
 <p>Note that for every of the previously mentioned chunks we also need
 to account for the space of the two heap allocator management nodes and
-the one heap node. So we need $ 3 + x$ bytes for one of the chunks of
-size <span class="math inline">\(x\)</span>.</p>
+the one heap node. So we need <span class="math inline">\(3 \cdot
+\text{0x28} + x\)</span> bytes for one of the chunks of size <span class="math inline">\(x\)</span>.</p>
 <p>Now we can use the <code>edit</code> functionality to make the first
 chunk smaller because the first chunk is the chunk with highest value.
 We shrink the chunk by 0x20 bytes so that the node describing the rest
@@ -445,7 +445,7 @@ checks in the heap management because we corrupted the second chunk’s
 nodes. To do that we add a new chunk with a length greater than the
 distance where the heap is stored. Luckily the heap is stored after
 <code>mem</code>, the arena of the allocator. Therefore we allocate a
-string with 0x390 null-bytes as padding, $ + 0x200 $ as
+string with 0x390 null-bytes as padding, <span class="math inline">\(\text{mem} + 0\text x200\)</span> as
 <code>heap.max</code> and <span class="math inline">\(1\)</span> as
 <code>heap.num_nodes</code>. Effectively setting:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>heap <span class="op">=</span> <span class="op">{</span></span>
