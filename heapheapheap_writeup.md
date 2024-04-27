@@ -126,7 +126,7 @@ To fulfill the first condition we allocate all the available memory in three chu
 
 (Note: all of the values are chosen totally randomly and have no pattern whatsoever, except for their ordering, i.e. value(1. chunk) > value(2. chunk) and so on. This is also true for the rest of the exploit.)
 
-Note that for every of the previously mentioned chunks we also need to account for the space of the two heap allocator management nodes and the one heap node. So we need $ 3 \cdot \text{0x28} + x$ bytes for one of the chunks of size $x$.
+Note that for every of the previously mentioned chunks we also need to account for the space of the two heap allocator management nodes and the one heap node. So we need $3 \cdot \text{0x28} + x$ bytes for one of the chunks of size $x$.
 
 Now we can use the `edit` functionality to make the first chunk smaller because the first chunk is the chunk with highest value. We shrink the chunk by 0x20 bytes so that the node describing the rest of the split chunk memory overlaps by 8 bytes with the next node. Moreover, the value (i..e the size) stored for the remainder chunk is $-8$ or rather 0xFFFFFFFFFFFFFFF8 as it is a `size_t`. This means that for now all further allocations are served from that chunk. Note that we need to put null-bytes into the associated string because we require that memory later on to be zero.
 Additionally, we reduce the assigned value to 69, so that we can edit the second chunk. 
@@ -136,7 +136,7 @@ Editing the second chunk with a value of 70 and a new length of $0 \text x 178 =
 We cannot write more than 0x10 bytes to the string because we then overwrite the node stored in the heap which will lead to triggering assertions or even segfaults. Luckily, the program allows us to allocate more memory for the string as actually required.
 
 The schematic below shows all the allocated chunks up to this point, but not to scale.
-<img src="writeup_imgs/heap.svg">
+<img src="./imgs/heap_heap_heap.svg">
 
 The large rectangle is the heap managed by `heap_heap`. The upper row are the chunks created during the setup steps of the exploit and the lower row is the chunks created to leak the image address. In reality, those chunks overlap, but for better readability they are separated vertically.
 
@@ -146,7 +146,7 @@ One can see the misaligned management node in red which leads to the cyan node f
 
 Through the leak, we can calculate the image base address and are now able to forge pointers.
 
-The first mission is to clean up the heap to avoid triggering sanity checks in the heap management because we corrupted the second chunk's nodes. To do that we add a new chunk with a length greater than the distance where the heap is stored. Luckily the heap is stored after `mem`, the arena of the allocator. Therefore we allocate a string with 0x390 null-bytes as padding, $\text{mem} + 0\text x200 $ as `heap.max` and $1$ as `heap.num_nodes`. Effectively setting:
+The first mission is to clean up the heap to avoid triggering sanity checks in the heap management because we corrupted the second chunk's nodes. To do that we add a new chunk with a length greater than the distance where the heap is stored. Luckily the heap is stored after `mem`, the arena of the allocator. Therefore we allocate a string with 0x390 null-bytes as padding, $\text{mem} + 0\text x200$ as `heap.max` and $1$ as `heap.num_nodes`. Effectively setting:
 ```c
 heap = {
     .max = mem + 0x200,
