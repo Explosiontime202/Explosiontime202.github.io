@@ -14,6 +14,7 @@ When an element is inserted into the heap, it is added as a leaf "somewhere" in 
 The beforehand mentioned "somewhere" is chosen, such that the tree is balanced. A simple algorithm and more explanation on the balancing is given in [this StackOverflow thread](https://stackoverflow.com/a/28397137/11168593).
 
 The user can modify the max-heap with the following operations:
+
 1. Add node: Add a new node to the heap. The user can provide the value used to order the nodes in the max-heap. Additionally a string of arbitrary length can be stored alongside the value.
 2. Edit root: Edit the root node of the max-heap, i.e. the node with the maximum value. The user can edit both value and the string. The string editing is implemented by freeing the memory and allocating again with a different size.
 3. Delete root: Remove the root node from the heap.
@@ -64,6 +65,7 @@ The memory allocator serves memory from a predefined memory page located in the 
 The memory allocation is built around the two functions `halloc` and `hfree`.
 
 With `halloc` more memory from the allocator can be requested. It is either served from
+
 1. the root node in the free heap,
 2. the top chunk / wilderness.
 
@@ -96,6 +98,7 @@ void hfree(void *ptr) {
 ### HeapHeapHeap ?! :confused:
 
 The binary was compiled with the following security measurements:
+
 - Partial RELRO
 - NX
 - PIE
@@ -116,10 +119,12 @@ I will refer to nodes of `heap` as "heap nodes" and the nodes in `heap_heap.heap
 ### Leak image base address or why this allocator is garbage
 
 First of all, we need to trigger the bug and thus create overlapping chunks. In order to do that, 
+
 1. we need to be served from the root node of the free heap and
 2. the remaining size must be in the interval $(0, \text{sizeof(Node)}) = (0, 0\text x28)$.
 
 To fulfill the first condition we allocate all the available memory in three chunks:
+
 1. A 0xa00 chunk, value = 1337
 2. A 0x100 chunk, value = 136
 3. The rest (0x398 B), value = 420
@@ -164,6 +169,7 @@ $$\begin{align*} length_{pivot} &= target - cur\_top \\ &= (mem + 0\text x200 - 
 As we interpret the negative number $length_{pivot}$ as an 64bit unsigned number, the resulting length is very large. But be aware to not write that many bytes, no current computer has Exabytes of RAM xD
 
 To explain that formula a bit:
+
 1. We want to pivot from the current top chunk to the target address
 2. The target address is 2 node chunks before our targeted fake chunk address, an actual management node will be placed there. Additionally, when editing the dummy again (to write the fake chunks), we need a management node before the heap node as well.
 3. `0x1110` is the offset of heap and `sizeof(Heap) = 0x10`.
