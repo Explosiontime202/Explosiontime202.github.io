@@ -249,6 +249,13 @@ var twemoji=function(){"use strict";var twemoji={base:"https://twemoji.maxcdn.co
 <body>
 <h1 id="gpn-ctf-2024---future-of-pwning-2">GPN CTF 2024 - Future of
 Pwning 2</h1>
+<ul>
+<li>Category: pwn</li>
+<li>Final point value: 500</li>
+<li>Number of solves: 1</li>
+<li>Solved by: <code>Explosiontime202</code> &amp;
+<code>fkil</code></li>
+</ul>
 <h2 id="challenge-description">Challenge Description</h2>
 <p>The challenge description says:</p>
 <blockquote>
@@ -807,7 +814,7 @@ printed ont the website. Alternatively, one could use <code>_exit</code>
 <span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a>int64 r2 <span class="op">=</span> <span class="dv">6</span></span>
 <span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a><span class="cf">call</span> _leak</span>
 <span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a>// print libc base addr</span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a>// print libc base addr for debug purposes</span>
 <span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a>int64 r16 <span class="op">=</span> <span class="op">[</span>libc_addr<span class="op">]</span></span>
 <span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a>int64 r16 <span class="op">=</span> r16 <span class="op">-</span> <span class="bn">0x3c8</span> <span class="op">//</span> libc base</span>
 <span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a>int64 <span class="op">[</span>libc_addr<span class="op">]</span> <span class="op">=</span> r16</span>
@@ -825,7 +832,7 @@ printed ont the website. Alternatively, one could use <code>_exit</code>
 <span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a>int64 r3 <span class="op">=</span> <span class="dv">9</span></span>
 <span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a><span class="cf">call</span> _leak_efficient</span>
 <span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a>// print pointer guard to stdout</span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a>// print pointer guard to stdout for debug purposes</span>
 <span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a>int64 r2 <span class="op">=</span> <span class="op">[</span>pointer_guard<span class="op">]</span></span>
 <span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a>int64 r1 <span class="op">=</span> address<span class="op">([</span>parlist<span class="op">])</span></span>
 <span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a>int64 <span class="op">[</span>r1<span class="op">]</span> <span class="op">=</span> r2</span>
