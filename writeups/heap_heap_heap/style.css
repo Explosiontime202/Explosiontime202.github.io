@@ -4,3 +4,5 @@
     height: 1em;          
     vertical-align: -.1em;
   }
+
+body { min-width: 60% !important; }

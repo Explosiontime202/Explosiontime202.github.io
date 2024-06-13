@@ -1,7 +1,3 @@
-<style>
-body { min-width: 60% !important; }
-</style>
-
 # WriteUp GreyCTF 2024 - HeapHeapHeap
 ## also known as $\text{Heap}^3$ or $\text{Pain}^3$
 
