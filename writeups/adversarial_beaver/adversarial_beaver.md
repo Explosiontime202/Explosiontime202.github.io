@@ -48,7 +48,7 @@ constraints:
 
 <img src="https://i.imgflip.com/9vzyzt.jpg"/>
 
-### The search for GOT(T)
+### The search for GO~~D~~T
 
 The tape is behind the GOT. So to overwrite it, we have to go to the left. To avoid changing anything important while traveling towards the GOT, every bit is replaced with itself. That could be achieved by the following transitions: `[(0, L, state + 1), (1, L, state + 1)]`
 

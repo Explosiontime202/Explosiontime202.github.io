@@ -58,7 +58,7 @@ constraints:
   rax == NULL || {rax, r12, NULL} is a valid argv
   [[rbp-0x70]] == NULL || [rbp-0x70] == NULL || [rbp-0x70] is a valid envp
 </code></pre><img src="https://i.imgflip.com/9vzyzt.jpg">
-<h3 id="the-search-for-gott">The search for GOT(T) </h3>
+<h3 id="the-search-for-godt">The search for GO<s>D</s>T </h3>
 <p>The tape is behind the GOT. So to overwrite it, we have to go to the left. To avoid changing anything important while traveling towards the GOT, every bit is replaced with itself. That could be achieved by the following transitions: <code>[(0, L, state + 1), (1, L, state + 1)]</code></p>
 <p>But we also need to stop. To do that, we choose a unique value before the GOT which always can be detected using the turing machine. For every bit of the value, we need one state, so the value should not be that too large or we run out of states.</p>
 <h5 id="wrong-naive-search_for-construction"><s>Wrong</s> Naive search_for construction </h5>
